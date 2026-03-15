@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heriberto Hernandez — Senior Accountant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #FAFAF8;
+      --white:      #FFFFFF;
+      --ink:        #1A1A1A;
+      --ink-soft:   #3D3D3D;
+      --ink-muted:  #787878;
+      --gold:       #9A7B4F;
+      --gold-lt:    #C4A07A;
+      --gold-bg:    rgba(154,123,79,0.07);
+      --gold-border:rgba(154,123,79,0.20);
+      --border:     #E8E5E0;
+      --surface:    #F3F1EC;
+      --tag-bg:     #EEECEA;
+      --green:      #2D8A5E;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-lt); border-radius: 2px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,250,248,0.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+    }
+    .nav-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      height: 68px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+    }
+    .nav-monogram {
+      width: 36px; height: 36px;
+      background: var(--ink);
+      color: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+    .nav-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+    }
+    .nav-name span {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: var(--ink-muted);
+      letter-spacing: 0.04em;
+    }
+    .nav-links {
+      display: flex; gap: 6px; list-style: none; align-items: center;
+    }
+    .nav-links a {
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      text-decoration: none;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); background: var(--surface); }
+    .nav-cta {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-available {
+      display: flex; align-items: center; gap: 7px;
+      padding: 6px 14px;
+      background: rgba(45,138,94,0.09);
+      border: 1px solid rgba(45,138,94,0.2);
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--green);
+    }
+    .dot-green {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+      animation: blink 2.4s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.35} }
+    .nav-btn {
+      padding: 8px 20px;
+      background: var(--ink);
+      color: var(--bg);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-btn:hover { background: var(--gold); transform: translateY(-1px); }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 48px; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 148px 0 100px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .hero-kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px;
+      background: var(--gold-bg);
+      border: 1px solid var(--gold-border);
+      border-radius: 100px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: riseIn 0.6s 0.2s forwards;
+    }
+    .hero-h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(2.8rem, 4.5vw, 4.4rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 6px;
+      opacity: 0;
+      animation: riseIn 0.6s 0.35s forwards;
+    }
+    .hero-h1 .accent {
+      font-style: italic;
+      font-weight: 600;
+      color: var(--gold);
+    }
+    .hero-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: riseIn 0.6s 0.5s forwards;
+    }
+    .hero-divider {
+      width: 48px; height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: riseIn 0.6s 0.6s forwards;
+    }
+    .hero-bio {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--ink-soft);
+      line-height: 1.85;
+      max-width: 520px;
+      opacity: 0;
+      animation: riseIn 0.6s 0.7s forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      margin-top: 40px;
+      opacity: 0;
+      animation: riseIn 0.6s 0.85s forwards;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px;
+      background: var(--ink);
+      color: var(--bg);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px;
+      border: 1.5px solid var(--border);
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    /* ── HERO RIGHT CARD ── */
+    .hero-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+      opacity: 0;
+      animation: riseIn 0.8s 1s forwards;
+    }
+    .hero-card-header {
+      padding: 24px 28px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .hero-card-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .hero-card-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--green);
+      letter-spacing: 0.08em;
+    }
+    .stats-list { padding: 8px 0; }
+    .stat-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 28px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-row:hover { background: var(--surface); }
+    .stat-label-text {
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      font-weight: 400;
+    }
+    .stat-value {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-align: right;
+    }
+    .stat-value.gold { color: var(--gold); }
+    .hero-card-footer {
+      padding: 20px 28px;
+      background: var(--ink);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-card-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(250,250,248,0.5);
+    }
+    .footer-card-name {
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--gold-lt);
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-eyebrow::before {
+      content: '';
+      width: 20px; height: 1.5px;
+      background: var(--gold);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .section-h2 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.9rem, 3.2vw, 2.9rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .section-h2 em {
+      font-style: italic;
+      font-weight: 600;
+      color: var(--gold);
+    }
+    .section-lead {
+      font-size: 1rem;
+      color: var(--ink-muted);
+      max-width: 560px;
+      line-height: 1.8;
+    }
+
+    /* ── EXPERTISE ── */
+    .expertise-header {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: end;
+      margin-bottom: 60px;
+    }
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .e-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 28px;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .e-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .e-card:hover {
+      border-color: var(--gold-border);
+      box-shadow: 0 8px 32px rgba(154,123,79,0.1);
+      transform: translateY(-3px);
+    }
+    .e-card:hover::before { transform: scaleX(1); }
+    .e-icon {
+      width: 44px; height: 44px;
+      background: var(--gold-bg);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    .e-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      color: var(--gold-lt);
+      margin-bottom: 10px;
+    }
+    .e-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .e-desc {
+      font-size: 0.83rem;
+      color: var(--ink-muted);
+      line-height: 1.75;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-wrapper { display: flex; flex-direction: column; gap: 0; }
+    .exp-row {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 60px;
+      padding: 52px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+      transition: background 0.2s;
+    }
+    .exp-row:first-child { border-top: 1px solid var(--border); }
+    .exp-left {}
+    .exp-co {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .exp-co-sub {
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      margin-bottom: 10px;
+    }
+    .exp-dates {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      background: var(--gold-bg);
+      border: 1px solid var(--gold-border);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+    .exp-right {}
+    .exp-title {
+      font-family: 'Lora', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--ink);
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+    .exp-body {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+    .exp-highlights {
+      display: flex; flex-direction: column; gap: 8px;
+      margin-bottom: 20px;
+    }
+    .exp-highlight {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.84rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+    .exp-highlight::before {
+      content: '→';
+      color: var(--gold);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      color: var(--ink-muted);
+      border-radius: 5px;
+    }
+
+    /* ── STACK ── */
+    .stack-section { background: var(--white); }
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 52px;
+    }
+    .stack-group {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 22px;
+      transition: border-color 0.2s;
+    }
+    .stack-group:hover { border-color: var(--gold-border); }
+    .stack-group-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .stack-items { display: flex; flex-direction: column; gap: 8px; }
+    .stack-item {
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .stack-item::before {
+      content: '';
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--gold-lt);
+      flex-shrink: 0;
+    }
+
+    /* ── AI SECTION ── */
+    .ai-section {
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .ai-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .ai-left .section-eyebrow { color: var(--gold-lt); }
+    .ai-left .section-eyebrow::before { background: var(--gold-lt); }
+    .ai-left .section-h2 { color: var(--bg); }
+    .ai-left .section-lead { color: rgba(250,250,248,0.6); }
+    .ai-right {}
+    .ai-items { display: flex; flex-direction: column; gap: 2px; }
+    .ai-item {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 24px 28px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      transition: background 0.2s;
+    }
+    .ai-item:hover { background: rgba(154,123,79,0.1); border-color: rgba(154,123,79,0.2); }
+    .ai-item-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .ai-item-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--bg);
+      margin-bottom: 5px;
+      letter-spacing: -0.01em;
+    }
+    .ai-item-desc {
+      font-size: 0.82rem;
+      color: rgba(250,250,248,0.5);
+      line-height: 1.7;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 52px;
+    }
+    .edu-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 32px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .edu-card:hover { border-color: var(--gold-border); box-shadow: 0 4px 20px rgba(154,123,79,0.08); }
+    .edu-school {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .edu-degree {
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .edu-detail {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+      margin-bottom: 16px;
+    }
+    .edu-gpa {
+      display: inline-block;
+      padding: 5px 12px;
+      background: var(--gold-bg);
+      border: 1px solid var(--gold-border);
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+    }
+
+    /* ── CONTACT ── */
+    .contact-section {}
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-left .section-h2 { margin-bottom: 20px; }
+    .contact-left p {
+      font-size: 0.95rem;
+      color: var(--ink-muted);
+      line-height: 1.8;
+      max-width: 420px;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 12px; margin-top: 36px; }
+    .contact-item {
+      display: flex; align-items: center;
+      padding: 20px 24px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--ink);
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      gap: 16px;
+    }
+    .contact-item:hover {
+      border-color: var(--gold-border);
+      box-shadow: 0 4px 20px rgba(154,123,79,0.1);
+      transform: translateX(4px);
+    }
+    .contact-item-icon {
+      width: 40px; height: 40px;
+      background: var(--gold-bg);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .contact-item-content { flex: 1; }
+    .contact-item-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 2px;
+    }
+    .contact-item-value {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .contact-item-arrow {
+      color: var(--gold);
+      font-size: 0.9rem;
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .contact-item:hover .contact-item-arrow { opacity: 1; transform: translateX(0); }
+    .contact-right {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 36px;
+    }
+    .cta-heading {
+      font-family: 'Lora', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+    .cta-heading em { font-style: italic; color: var(--gold); }
+    .cta-body {
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+    .cta-points { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .cta-point {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.84rem;
+      color: var(--ink-soft);
+    }
+    .cta-point::before {
+      content: '✓';
+      width: 20px; height: 20px;
+      background: var(--gold-bg);
+      border: 1px solid var(--gold-border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.6rem;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+    }
+    .footer-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-left {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+    }
+    .footer-left strong { color: var(--ink); font-weight: 600; }
+    .footer-right {
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .container { padding: 0 24px; }
+      .nav-inner { padding: 0 24px; }
+      .hero { grid-template-columns: 1fr; gap: 48px; padding: 120px 0 60px; }
+      .expertise-header { grid-template-columns: 1fr; gap: 20px; }
+      .expertise-grid { grid-template-columns: 1fr 1fr; }
+      .exp-row { grid-template-columns: 1fr; gap: 12px; }
+      .stack-grid { grid-template-columns: 1fr 1fr; }
+      .ai-inner { grid-template-columns: 1fr; gap: 48px; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 580px) {
+      .expertise-grid { grid-template-columns: 1fr; }
+      .stack-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">
+      <div class="nav-monogram">HH</div>
+      <div class="nav-name">
+        Heriberto Hernandez
+        <span>Senior Accountant · SF Bay Area</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#expertise">Expertise</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <div class="nav-available">
+        <span class="dot-green"></span>
+        Open to Opportunities
+      </div>
+      <a class="nav-btn" href="mailto:hherna22calpoly@gmail.com">Hire Me</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="container">
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-kicker">Senior Accountant · Cal Poly SLO · San Francisco Bay Area</div>
+      <h1 class="hero-h1">
+        Heriberto<br>
+        <span class="accent">Hernandez</span>
+      </h1>
+      <p class="hero-role">Accounting · Automation · AI · FloQast</p>
+      <div class="hero-divider"></div>
+      <p class="hero-bio">
+        Senior accounting professional with hands-on FloQast deployment experience across multiple entities, deep ASC 606 revenue recognition expertise, and a genuine passion for building automation tools that transform how accounting teams operate. I sit at the intersection of accounting domain knowledge and AI-powered technology — and I bring both to every role.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="mailto:hherna22calpoly@gmail.com">Get in Touch →</a>
+        <a class="btn-secondary" href="https://linkedin.com/in/heribertohernandez11" target="_blank">View LinkedIn ↗</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-card-header">
+        <span class="hero-card-title">Professional Profile</span>
+        <span class="hero-card-badge">● Available Now</span>
+      </div>
+      <div class="stats-list">
+        <div class="stat-row">
+          <span class="stat-label-text">Experience</span>
+          <span class="stat-value gold">3+ Years</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label-text">FloQast Entities Deployed</span>
+          <span class="stat-value gold">3 Entities</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label-text">Revenue Standard</span>
+          <span class="stat-value">ASC 606</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label-text">Education</span>
+          <span class="stat-value">Cal Poly SLO</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label-text">Location</span>
+          <span class="stat-value">SF Bay Area</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label-text">Work Authorization</span>
+          <span class="stat-value">US Citizen</span>
+        </div>
+      </div>
+      <div class="hero-card-footer">
+        <span class="footer-card-text">Ready to contribute</span>
+        <span class="footer-card-name">Heriberto Hernandez</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="container">
+    <div class="expertise-header reveal">
+      <div>
+        <p class="section-eyebrow">Core Expertise</p>
+        <h2 class="section-h2">Built in the field,<br>proven in the <em>close.</em></h2>
+      </div>
+      <p class="section-lead">Every skill listed here was developed in a real accounting environment — not a classroom. From FloQast deployment to ASC 606 research, this is what I bring on day one.</p>
+    </div>
+    <div class="expertise-grid">
+      <div class="e-card reveal">
+        <div class="e-icon">⚡</div>
+        <p class="e-num">01</p>
+        <h3 class="e-title">FloQast Deployment</h3>
+        <p class="e-desc">Deployed and operated FloQast across 3 entities at a HEICO subsidiary. Configured reconciliation workflows, managed close assignments, and coordinated corporate month-end sign-offs end to end.</p>
+      </div>
+      <div class="e-card reveal">
+        <div class="e-icon">📅</div>
+        <p class="e-num">02</p>
+        <h3 class="e-title">Month-End Close</h3>
+        <p class="e-desc">Full ownership of the close cycle — journal entries, reconciliations, flux analysis, accruals, and supporting schedules across multiple entities with consistent accuracy and timeliness.</p>
+      </div>
+      <div class="e-card reveal">
+        <div class="e-icon">📋</div>
+        <p class="e-num">03</p>
+        <h3 class="e-title">ASC 606 Revenue</h3>
+        <p class="e-desc">Applied the five-step revenue recognition model to evaluate contracts, determine performance obligations, allocate transaction prices, and produce audit-defensible documentation.</p>
+      </div>
+      <div class="e-card reveal">
+        <div class="e-icon">🤖</div>
+        <p class="e-num">04</p>
+        <h3 class="e-title">Automation & AI</h3>
+        <p class="e-desc">Excel macros, AI-assisted documentation and research, automated reconciliation frameworks, and financial data analysis. Building smarter workflows is not a task — it is how I think.</p>
+      </div>
+      <div class="e-card reveal">
+        <div class="e-icon">🔗</div>
+        <p class="e-num">05</p>
+        <h3 class="e-title">Intercompany Accounting</h3>
+        <p class="e-desc">Multi-entity intercompany journal entries, eliminations, cost allocations, and timely balance settlement across parent and subsidiary structures including HEICO Corporation.</p>
+      </div>
+      <div class="e-card reveal">
+        <div class="e-icon">🔬</div>
+        <p class="e-num">06</p>
+        <h3 class="e-title">Technical Research</h3>
+        <p class="e-desc">Independent FASB ASC codification navigation and U.S. GAAP research to reach well-supported, audit-ready conclusions — without waiting to be told what the answer is.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:56px;">
+      <p class="section-eyebrow">Work Experience</p>
+      <h2 class="section-h2">Where the work<br>got <em>done.</em></h2>
+    </div>
+    <div class="exp-wrapper">
+
+      <div class="exp-row reveal">
+        <div class="exp-left">
+          <p class="exp-co">North American Fire Hose</p>
+          <p class="exp-co-sub">Santa Maria, CA</p>
+          <span class="exp-dates">Nov 2024 – Sep 2025</span>
+        </div>
+        <div class="exp-right">
+          <p class="exp-title">Senior Accountant</p>
+          <p class="exp-body">Owned the full monthly and quarterly close cycle across multiple entities — from journal entries and reconciliations to flux analysis, accruals, and FP&A partnership. Applied ASC 606 to customer contracts, built Excel automation tools that eliminated manual close work, and delivered comprehensive audit support packages for year-end external audit.</p>
+          <div class="exp-highlights">
+            <div class="exp-highlight">Applied ASC 606 five-step model to evaluate contracts and document audit-defensible revenue recognition conclusions</div>
+            <div class="exp-highlight">Built Excel macros and automated reconciliation templates that reduced close cycle manual effort significantly</div>
+            <div class="exp-highlight">Partnered with FP&A to align accounting results with forecasts and business drivers every period</div>
+          </div>
+          <div class="tag-list">
+            <span class="tag">ASC 606</span>
+            <span class="tag">Multi-Entity Close</span>
+            <span class="tag">Excel Automation</span>
+            <span class="tag">FP&A Partnership</span>
+            <span class="tag">Audit Support</span>
+            <span class="tag">NetSuite</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-row reveal">
+        <div class="exp-left">
+          <p class="exp-co">Santa Barbara Infrared</p>
+          <p class="exp-co-sub">a HEICO Company · Santa Barbara, CA</p>
+          <span class="exp-dates">Aug 2024 – Sep 2024</span>
+        </div>
+        <div class="exp-right">
+          <p class="exp-title">Senior Accountant</p>
+          <p class="exp-body">Deployed FloQast as the primary close management platform across 3 entities — configuring workflows, managing close assignments, and coordinating month-end sign-offs with HEICO corporate. Maintained SOX-aligned internal controls documentation and managed intercompany accounting with parent and subsidiaries.</p>
+          <div class="exp-highlights">
+            <div class="exp-highlight">Deployed and operated FloQast across 3 entities — configuring reconciliations, managing assignments, coordinating HEICO corporate sign-offs</div>
+            <div class="exp-highlight">Applied ASC 606 revenue recognition across multiple revenue streams in a SOX-controlled environment</div>
+            <div class="exp-highlight">Managed intercompany journal entries and eliminations with HEICO parent and subsidiaries</div>
+          </div>
+          <div class="tag-list">
+            <span class="tag">FloQast</span>
+            <span class="tag">HEICO · Public Company</span>
+            <span class="tag">SOX Controls</span>
+            <span class="tag">Intercompany</span>
+            <span class="tag">ASC 606</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-row reveal">
+        <div class="exp-left">
+          <p class="exp-co">Synergy Manufacturing</p>
+          <p class="exp-co-sub">San Luis Obispo, CA</p>
+          <span class="exp-dates">May 2024 – Aug 2024</span>
+        </div>
+        <div class="exp-right">
+          <p class="exp-title">Accounting Assistant</p>
+          <p class="exp-body">Supported monthly close through journal entry preparation, GL reconciliations, and variance analysis. Built Excel-based automation tools that reduced manual effort across the accounting function. Researched and resolved complex account discrepancies independently and managed high-volume AP operations.</p>
+          <div class="tag-list">
+            <span class="tag">GL Reconciliations</span>
+            <span class="tag">Process Automation</span>
+            <span class="tag">Variance Analysis</span>
+            <span class="tag">AP/AR</span>
+            <span class="tag">Journal Entries</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section id="stack" class="stack-section">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:0">
+      <p class="section-eyebrow">Technology Stack</p>
+      <h2 class="section-h2">The tools that<br><em>get it done.</em></h2>
+    </div>
+    <div class="stack-grid reveal">
+      <div class="stack-group">
+        <p class="stack-group-label">Close Management</p>
+        <div class="stack-items">
+          <span class="stack-item">FloQast</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <p class="stack-group-label">ERP Systems</p>
+        <div class="stack-items">
+          <span class="stack-item">NetSuite</span>
+          <span class="stack-item">SAP</span>
+          <span class="stack-item">Sage 100</span>
+          <span class="stack-item">Oracle</span>
+          <span class="stack-item">QuickBooks</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <p class="stack-group-label">Automation & Analytics</p>
+        <div class="stack-items">
+          <span class="stack-item">Excel Macros & VBA</span>
+          <span class="stack-item">Power BI</span>
+          <span class="stack-item">Tableau</span>
+          <span class="stack-item">AI Workflow Tools</span>
+          <span class="stack-item">SQL (familiar)</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <p class="stack-group-label">Accounting Standards</p>
+        <div class="stack-items">
+          <span class="stack-item">ASC 606</span>
+          <span class="stack-item">ASC 310 / 326</span>
+          <span class="stack-item">U.S. GAAP</span>
+          <span class="stack-item">FASB Codification</span>
+          <span class="stack-item">SOX Controls</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI SECTION -->
+<section class="ai-section">
+  <div class="container">
+    <div class="ai-inner">
+      <div class="ai-left reveal">
+        <p class="section-eyebrow">Automation & AI</p>
+        <h2 class="section-h2">The future of accounting<br>is <em>already here.</em></h2>
+        <p class="section-lead" style="margin-top:16px;">Automation is not something I do when asked. It is how I think. I have been working at the intersection of accounting and technology throughout my career — and I am not stopping.</p>
+      </div>
+      <div class="ai-right reveal">
+        <div class="ai-items">
+          <div class="ai-item">
+            <span class="ai-item-icon">⚡</span>
+            <div>
+              <p class="ai-item-title">FloQast Power User</p>
+              <p class="ai-item-desc">Deployed FloQast across 3 entities at a HEICO subsidiary — configuring workflows, managing assignments, and coordinating corporate sign-offs in a live close environment.</p>
+            </div>
+          </div>
+          <div class="ai-item">
+            <span class="ai-item-icon">🛠</span>
+            <div>
+              <p class="ai-item-title">Excel Macro Development</p>
+              <p class="ai-item-desc">Built macros that auto-populate reconciliations, flag variances above threshold, and generate management-ready outputs — cutting manual prep time significantly each close cycle.</p>
+            </div>
+          </div>
+          <div class="ai-item">
+            <span class="ai-item-icon">🤖</span>
+            <div>
+              <p class="ai-item-title">AI-Assisted Accounting Work</p>
+              <p class="ai-item-desc">Uses AI tools to accelerate ASC 606 memos, patent and tax accounting updates, and journal entry documentation — always verifying outputs and owning every conclusion.</p>
+            </div>
+          </div>
+          <div class="ai-item">
+            <span class="ai-item-icon">📊</span>
+            <div>
+              <p class="ai-item-title">Strategic Data Analysis</p>
+              <p class="ai-item-desc">Analyzes financial datasets to surface insights beyond the numbers — understanding what the data is saying at a strategic level and communicating it clearly to stakeholders.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section>
+  <div class="container">
+    <div class="reveal" style="margin-bottom:0">
+      <p class="section-eyebrow">Education</p>
+      <h2 class="section-h2">The foundation<br>behind the <em>work.</em></h2>
+    </div>
+    <div class="edu-grid reveal">
+      <div class="edu-card">
+        <p class="edu-school">California Polytechnic State University</p>
+        <p class="edu-degree">B.S. Business Administration</p>
+        <p class="edu-detail">Concentration: Accounting · San Luis Obispo, CA · 2021–2024</p>
+        <span class="edu-gpa">GPA: 3.3</span>
+      </div>
+      <div class="edu-card">
+        <p class="edu-school">Allan Hancock College</p>
+        <p class="edu-degree">A.S. Business Administration · A.A. Mathematics & Science</p>
+        <p class="edu-detail">Santa Maria, CA · 2018–2021</p>
+        <span class="edu-gpa">GPA: 3.5</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-left reveal">
+        <p class="section-eyebrow">Contact</p>
+        <h2 class="section-h2">Let's build<br>something <em>great.</em></h2>
+        <p>I am actively seeking Senior Accountant, Revenue Accountant, and accounting technology roles in the San Francisco Bay Area. If you are looking for someone who brings deep accounting expertise, real FloQast experience, and a genuine passion for automation — let's talk.</p>
+        <div class="contact-links">
+          <a class="contact-item" href="mailto:hherna22calpoly@gmail.com">
+            <div class="contact-item-icon">✉️</div>
+            <div class="contact-item-content">
+              <p class="contact-item-label">Email</p>
+              <p class="contact-item-value">hherna22calpoly@gmail.com</p>
+            </div>
+            <span class="contact-item-arrow">→</span>
+          </a>
+          <a class="contact-item" href="tel:4153697595">
+            <div class="contact-item-icon">📞</div>
+            <div class="contact-item-content">
+              <p class="contact-item-label">Phone</p>
+              <p class="contact-item-value">(415) 369-7595</p>
+            </div>
+            <span class="contact-item-arrow">→</span>
+          </a>
+          <a class="contact-item" href="https://linkedin.com/in/heribertohernandez11" target="_blank">
+            <div class="contact-item-icon">💼</div>
+            <div class="contact-item-content">
+              <p class="contact-item-label">LinkedIn</p>
+              <p class="contact-item-value">linkedin.com/in/heribertohernandez11</p>
+            </div>
+            <span class="contact-item-arrow">→</span>
+          </a>
+        </div>
+      </div>
+      <div class="contact-right reveal">
+        <h3 class="cta-heading">Why hire <em>Heriberto?</em></h3>
+        <p class="cta-body">Here is what you get when you bring me on your team — on day one and every day after.</p>
+        <div class="cta-points">
+          <div class="cta-point">Real FloQast deployment experience — 3 entities at a HEICO subsidiary</div>
+          <div class="cta-point">Full close cycle ownership with zero handholding needed</div>
+          <div class="cta-point">ASC 606 expertise built in live accounting environments</div>
+          <div class="cta-point">Excel automation tools that eliminate manual work from day one</div>
+          <div class="cta-point">AI-forward mindset — constantly exploring what is possible</div>
+          <div class="cta-point">Detail-oriented, dependable, and always accountable</div>
+        </div>
+        <a class="btn-primary" href="mailto:hherna22calpoly@gmail.com" style="width:100%;justify-content:center;border-radius:8px;">Let's Talk →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-left"><strong>Heriberto Hernandez</strong> · Senior Accountant · San Francisco Bay Area · © 2026</p>
+    <p class="footer-right">Cal Poly SLO · Open to Opportunities</p>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), i * 90);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
